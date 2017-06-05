@@ -11,7 +11,7 @@ URL:            https://www.plex.tv/apps/computer/plex-media-player/
 Source0:        https://github.com/plexinc/%{name}/archive/v%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
-Source3:        %{name}.pkla.disabled
+Source3:        %{name}.pkla
 Source4:        %{name}.service
 Source5:        %{name}.target
 
@@ -146,7 +146,7 @@ exit 0
 %files session
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.target
-%{_sysconfdir}/polkit-1/localauthority/50-local.d/%{name}.pkla.disabled
+%{_sysconfdir}/polkit-1/localauthority/50-local.d/%{name}.pkla
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
