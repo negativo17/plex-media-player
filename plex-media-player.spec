@@ -14,6 +14,7 @@ Source2:        %{name}.appdata.xml
 Source3:        %{name}.pkla.disabled
 Source4:        %{name}.service
 Source5:        95-%{name}.preset
+Source6:        %{name}.target
 
 Patch0:         %{name}-1.3.2-webengine.patch
 
@@ -90,9 +91,10 @@ mkdir -p %{buildroot}%{_presetdir}
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 
-install -p -m 0644 -D %{SOURCE3} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
-install -p -m 0644 -D %{SOURCE4} %{buildroot}%{_unitdir}
-install -p -m 0644 -D %{SOURCE5} %{buildroot}%{_presetdir}
+install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
+install -p -m 0644 %{SOURCE4} %{buildroot}%{_unitdir}
+install -p -m 0644 %{SOURCE5} %{buildroot}%{_presetdir}
+install -p -m 0644 %{SOURCE6} %{buildroot}%{_unitdir}
 
 %if 0%{?fedora} >= 25
 # Install Gnome Software metadata
@@ -155,6 +157,7 @@ exit 0
 
 %files session
 %{_unitdir}/%{name}.service
+%{_unitdir}/%{name}.target
 %{_presetdir}/95-%{name}.preset
 %{_sysconfdir}/polkit-1/localauthority/50-local.d/%{name}.pkla.disabled
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
