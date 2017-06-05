@@ -14,6 +14,7 @@ Source2:        %{name}.appdata.xml
 Source3:        %{name}.pkla
 Source4:        %{name}.service
 Source5:        %{name}.target
+Source10:       README.Fedora
 
 Patch0:         %{name}-1.3.2-webengine.patch
 
@@ -61,6 +62,7 @@ Player in TV mode at boot for HTPC installations.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}-%{shortcommit}
+cp %{SOURCE10} .
 mkdir build
 
 # Dirty hack to avoid having a system conan
@@ -134,6 +136,7 @@ exit 0
 
 %files
 %license LICENSE
+%doc README.Fedora
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
 %if 0%{?fedora} >= 25

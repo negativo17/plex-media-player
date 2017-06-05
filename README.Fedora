@@ -1,0 +1,28 @@
+Enabling Plex Media Player startup at boot
+==========================================
+
+If you are planning to do an HTPC installation, and would like to have Plex
+Media Player starting instead of the login screen the moment you boot the
+device, execute the following commands as root:
+
+ # yum/dnf install plex-media-player-session
+ # systemctl set-default plex-media-player
+ # echo "allowed_users = anybody" >> /etc/X11/Xwrapper.config
+
+The first command installs the required files (services, targets and PolicyKit
+overrides).
+
+The second command instructs the system to load by default the Plex Media Player
+target; that is X and the player just after.
+
+The third command allows the system to start the X server as the Plex Media
+Player user, otherwise only users logged in through a console or root can start
+it.
+
+If you want to go back to your normal installation (let's say Gnome), then
+revert back the changes:
+
+ # systemctl set-default graphical
+ # sed -i -e '/allowed_users = anybody/d' /etc/X11/Xwrapper.config
+ # rpm -e plex-media-player-session
+
