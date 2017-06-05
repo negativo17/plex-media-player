@@ -18,8 +18,13 @@ Source10:       README.Fedora
 
 Patch0:         %{name}-1.3.2-webengine.patch
 
-BuildRequires:  alsa-lib-devel
+%if 0%{?rhel} == 7
+BuildRequires:  cmake3 >= 3.1.0
+%else
 BuildRequires:  cmake >= 3.1.0
+%endif
+
+BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
@@ -39,14 +44,17 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mpv-libs-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  systemd
-BuildRequires:  qt5-devel >= 5.7
-BuildRequires:  qt5-qtwebengine-devel >= 5.7
+BuildRequires:  qt5-qtbase-devel >= 5.6
+BuildRequires:  qt5-qtdeclarative-devel >= 5.6
+BuildRequires:  qt5-qtwebchannel-devel >= 5.6
+BuildRequires:  qt5-qtwebengine-devel >= 5.6
+BuildRequires:  qt5-qtx11extras-devel >= 5.6
 BuildRequires:  SDL2-devel
 BuildRequires:  uchardet-devel
 BuildRequires:  yasm
 BuildRequires:  zlib-devel
 
-Requires:       qt5-qtquickcontrols >= 5.7
+Requires:       qt5-qtquickcontrols >= 5.6
 
 %description
 Plex Media Player is the go-to app for Home Theater PCs (HTPCs) connected to big
