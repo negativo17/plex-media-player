@@ -1,0 +1,14 @@
+[Unit]
+Description = Plex Media Player
+After = network-online.target remote-fs.target systemd-user-sessions.service
+
+[Service]
+User = plex-media-player
+Group = plex-media-player
+PAMName = login
+Type = simple
+ExecStart = /usr/bin/xinit /usr/bin/plexmediaplayer --tv --scale-factor=1.5 -- -nocursor :0 -nolisten tcp -s off
+Restart = on-abort
+ 
+[Install]
+WantedBy = multi-user.target
