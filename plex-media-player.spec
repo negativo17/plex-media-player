@@ -8,10 +8,14 @@ License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
 
 Source0:        https://github.com/plexinc/%{name}/archive/v%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
+Source1:        %{name}.desktop
+Source2:        %{name}.appdata.xml
+
 Patch0:         %{name}-1.3.2-webengine.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake >= 3.1.0
+BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
 BuildRequires:  fribidi-devel
@@ -19,6 +23,7 @@ BuildRequires:  gnutls-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  harfbuzz-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  libcec-devel >= 4.0.0
 BuildRequires:  libva-devel
 BuildRequires:  libvdpau-devel
@@ -62,10 +67,38 @@ pushd build
 %make_install
 popd
 
+# Desktop icon
+desktop-file-install --dir %{buildroot}%{_datadir}/applications/ %{SOURCE1}
+install -p -m 0644 -D resources/images/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
+
+%if 0%{?fedora} >= 25
+# Install Gnome Software metadata
+install -p -m 0644 -D %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+%endif
+
+%check
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+%post
+%if 0%{?fedora} == 24 || 0%{?rhel} == 7
+/usr/bin/update-desktop-database &> /dev/null || :
+%endif
+
+%postun
+%if 0%{?fedora} == 24 || 0%{?rhel} == 7
+/usr/bin/update-desktop-database &> /dev/null || :
+%endif
+
 %files
 %license LICENSE
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
+%if 0%{?fedora} >= 25
+%{_datadir}/appdata/%{name}.appdata.xml
+%endif
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/plexmediaplayer
 
 %changelog
