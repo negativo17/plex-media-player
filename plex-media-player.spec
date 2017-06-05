@@ -20,6 +20,7 @@ Patch0:         %{name}-1.3.2-webengine.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
+BuildRequires:  python2-pip
 %else
 BuildRequires:  cmake >= 3.1.0
 %endif
@@ -74,13 +75,21 @@ cp %{SOURCE10} .
 mkdir build
 
 # Dirty hack to avoid having a system conan
+%if 0%{?rhel} == 7
+pip install --user conan
+%else
 pip3 install --user conan
+%endif
 ~/.local/bin/conan remote add plex https://conan.plex.tv
 
 %build
 pushd build
 ~/.local/bin/conan install ..
+%if 0%{?rhel} == 7
+%cmake3 \
+%else
 %cmake \
+%endif
     -DQTROOT="%{_qt5_prefix}" \
     ..
 popd
