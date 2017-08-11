@@ -111,7 +111,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 install -p -m 0644 %{SOURCE4} %{SOURCE5} %{buildroot}%{_unitdir}
 
-%if 0%{?fedora} >= 25
+%if 0%{?fedora}
 # Install Gnome Software metadata
 install -p -m 0644 -D %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 %endif
@@ -131,7 +131,7 @@ getent passwd %username >/dev/null || useradd -r -M \
 exit 0
 
 %post session
-%if 0%{?fedora} >= 25
+%if 0%{?fedora}
 %systemd_post %{name}.service
 
 %preun session
@@ -142,12 +142,12 @@ exit 0
 %endif
 
 %post
-%if 0%{?fedora} == 24 || 0%{?rhel} == 7
+%if 0%{?rhel} == 7
 /usr/bin/update-desktop-database &> /dev/null || :
 %endif
 
 %postun
-%if 0%{?fedora} == 24 || 0%{?rhel} == 7
+%if 0%{?rhel} == 7
 /usr/bin/update-desktop-database &> /dev/null || :
 %endif
 
@@ -156,7 +156,7 @@ exit 0
 %doc README.Fedora
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
-%if 0%{?fedora} >= 25
+%if 0%{?fedora}
 %{_datadir}/appdata/%{name}.appdata.xml
 %endif
 %{_datadir}/applications/%{name}.desktop
