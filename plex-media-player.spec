@@ -1,8 +1,8 @@
-%global shortcommit fed6185a
+%global shortcommit 5dad2d62
 %global username plex-media-player
 
 Name:           plex-media-player
-Version:        1.3.12.755
+Version:        2.2.1.758
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
@@ -16,7 +16,7 @@ Source4:        %{name}.service
 Source5:        %{name}.target
 Source10:       README.Fedora
 
-Patch0:         %{name}-1.3.2-webengine.patch
+Patch0:         %{name}-2.2.1-webengine.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -176,6 +176,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Mon Jan 08 2018 Simone Caronni <negativo17@gmail.com> - 2.2.1.758-1
+- Update to 2.2.1.758-5dad2d62.
+
 * Tue Dec 19 2017 Simone Caronni <negativo17@gmail.com> - 1.3.12.755-1
 - Update to version 1.3.12.755-fed6185a.
 
