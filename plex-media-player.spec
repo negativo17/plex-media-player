@@ -1,8 +1,8 @@
-%global shortcommit dfcd90a6
+%global shortcommit fed6185a
 %global username plex-media-player
 
 Name:           plex-media-player
-Version:        1.3.10.720
+Version:        1.3.12.755
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
@@ -26,6 +26,7 @@ BuildRequires:  cmake >= 3.1.0
 %endif
 
 BuildRequires:  alsa-lib-devel
+BuildRequires:  cuda-gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
@@ -33,6 +34,7 @@ BuildRequires:  fribidi-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  git
 BuildRequires:  harfbuzz-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libcec-devel >= 4.0.0
@@ -83,7 +85,11 @@ pip3 install --user conan
 ~/.local/bin/conan remote add plex https://conan.plex.tv
 
 %build
+export CC=/usr/bin/cuda-gcc
+export CXX=/usr/bin/cuda-g++
 pushd build
+# No chance to build modules from source, as the source is not public.
+#~/.local/bin/conan install --build=web-client-desktop ..
 ~/.local/bin/conan install ..
 %if 0%{?rhel} == 7
 %cmake3 \
@@ -170,6 +176,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Tue Dec 19 2017 Simone Caronni <negativo17@gmail.com> - 1.3.12.755-1
+- Update to version 1.3.12.755-fed6185a.
+
 * Mon Oct 30 2017 Simone Caronni <negativo17@gmail.com> - 1.3.10.720-1
 - Update to 1.3.10.720-dfcd90a6.
 
