@@ -140,7 +140,7 @@ exit 0
 
 %files
 %license LICENSE
-%doc README.Fedora
+%doc README.Fedora release-notes
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
 %if 0%{?fedora}
