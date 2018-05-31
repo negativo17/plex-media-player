@@ -22,7 +22,6 @@ BuildRequires:  cmake >= 3.1.0
 %endif
 
 BuildRequires:  alsa-lib-devel
-BuildRequires:  cuda-gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
