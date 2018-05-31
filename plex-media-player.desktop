@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Plex Media Player
-Exec=plexmediaplayer --desktop
-Icon=plex-media-player
-Terminal=false
-Type=Application
-Categories=AudioVideo;
-StartupNotify=true

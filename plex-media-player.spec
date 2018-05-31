@@ -1,26 +1,22 @@
-%global shortcommit 5dad2d62
+%global shortcommit f27f8d2a
 %global username plex-media-player
 
 Name:           plex-media-player
-Version:        2.2.1.758
+Version:        2.11.0.867
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
 
 Source0:        https://github.com/plexinc/%{name}/archive/v%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
-Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
 Source3:        %{name}.pkla
 Source4:        %{name}.service
 Source5:        %{name}.target
 Source10:       README.Fedora
 
-Patch0:         %{name}-2.2.1-webengine.patch
-
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
-BuildRequires:  python2-pip
 %else
 BuildRequires:  cmake >= 3.1.0
 %endif
@@ -72,25 +68,12 @@ This add-on to the %{name} package allows you to start the Plex Media
 Player in TV mode at boot for HTPC installations.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-%{shortcommit}
+%autosetup -n %{name}-%{version}-%{shortcommit}
 cp %{SOURCE10} .
 mkdir build
 
-# Dirty hack to avoid having a system conan
-%if 0%{?rhel} == 7
-pip install --user conan
-%else
-pip3 install --user conan
-%endif
-~/.local/bin/conan remote add plex https://conan.plex.tv
-
 %build
-export CC=/usr/bin/cuda-gcc
-export CXX=/usr/bin/cuda-g++
 pushd build
-# No chance to build modules from source, as the source is not public.
-#~/.local/bin/conan install --build=web-client-desktop ..
-~/.local/bin/conan install ..
 %if 0%{?rhel} == 7
 %cmake3 \
 %else
@@ -106,7 +89,6 @@ pushd build
 popd
 
 # Desktop icon
-desktop-file-install --dir %{buildroot}%{_datadir}/applications/ %{SOURCE1}
 install -p -m 0644 -D resources/images/icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 # Install session files
@@ -124,7 +106,7 @@ install -p -m 0644 -D %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata
 
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/plexmediaplayer.desktop
 
 %pre session
 getent group %username >/dev/null || groupadd -r %username &>/dev/null || :
@@ -165,7 +147,8 @@ exit 0
 %if 0%{?fedora}
 %{_datadir}/appdata/%{name}.appdata.xml
 %endif
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/plexmediaplayer.desktop
+%{_datadir}/icons/hicolor/scalable/apps/plexmediaplayer.svg
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/plexmediaplayer
 
@@ -176,6 +159,10 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Thu May 31 2018 Simone Caronni <negativo17@gmail.com> - 2.11.0.867-1
+- Update to 2.11.0.867-f27f8d2a.
+- Remove conan/pip part.
+
 * Mon Jan 08 2018 Simone Caronni <negativo17@gmail.com> - 2.2.1.758-1
 - Update to 2.2.1.758-5dad2d62.
 
