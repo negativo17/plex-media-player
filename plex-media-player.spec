@@ -1,8 +1,8 @@
-%global shortcommit f27f8d2a
+%global shortcommit 4af5a622
 %global username plex-media-player
 
 Name:           plex-media-player
-Version:        2.11.0.867
+Version:        2.11.1.870
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
@@ -158,6 +158,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Mon Jun 11 2018 Simone Caronni <negativo17@gmail.com> - 2.11.1.870-1
+- Update to v2.11.1.870-4af5a622.
+
 * Thu May 31 2018 Simone Caronni <negativo17@gmail.com> - 2.11.0.867-1
 - Update to 2.11.0.867-f27f8d2a.
 - Remove conan/pip part.
