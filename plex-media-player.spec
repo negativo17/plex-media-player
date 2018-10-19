@@ -1,19 +1,29 @@
 %global shortcommit 46413dd1
 %global username plex-media-player
 
+%global _web_client_build_id 78-ac41f92757f795
+%global _tv_version 3.72.0-ac41f92
+%global _desktop_version 3.71.1-757f795
+
 Name:           plex-media-player
 Version:        2.20.0.909
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
 
 Source0:        https://github.com/plexinc/%{name}/archive/v%{version}-%{shortcommit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
-Source2:        %{name}.appdata.xml
-Source3:        %{name}.pkla
-Source4:        %{name}.service
-Source5:        %{name}.target
-Source10:       README.Fedora
+Source1:        https://artifacts.plex.tv/web-client-pmp/%{_web_client_build_id}/buildid.cmake#/buildid-%{_web_client_build_id}.cmake
+Source2:        https://artifacts.plex.tv/web-client-pmp/%{_web_client_build_id}/web-client-desktop-%{_desktop_version}.tar.xz
+Source3:        https://artifacts.plex.tv/web-client-pmp/%{_web_client_build_id}/web-client-desktop-%{_desktop_version}.tar.xz.sha1
+Source4:        https://artifacts.plex.tv/web-client-pmp/%{_web_client_build_id}/web-client-tv-%{_tv_version}.tar.xz
+Source5:        https://artifacts.plex.tv/web-client-pmp/%{_web_client_build_id}/web-client-tv-%{_tv_version}.tar.xz.sha1
+
+Source10:        %{name}.appdata.xml
+Source11:        %{name}.pkla
+Source12:        %{name}.service
+Source13:        %{name}.target
+Source14:       README.Fedora
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -68,10 +78,15 @@ Player in TV mode at boot for HTPC installations.
 
 %prep
 %autosetup -n %{name}-%{version}-%{shortcommit}
-cp %{SOURCE10} .
-mkdir build
+cp %{SOURCE14} .
+
+mkdir -p build/dependencies
+cp  %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} build/dependencies/
 
 %build
+# This makes build stop if any download is attempted
+export http_proxy=http://127.0.0.1
+
 pushd build
 %if 0%{?rhel} == 7
 %cmake3 \
@@ -95,12 +110,12 @@ mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 
-install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
-install -p -m 0644 %{SOURCE4} %{SOURCE5} %{buildroot}%{_unitdir}
+install -p -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
+install -p -m 0644 %{SOURCE12} %{SOURCE13} %{buildroot}%{_unitdir}
 
 %if 0%{?fedora}
 # Install Gnome Software metadata
-install -p -m 0644 -D %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -p -m 0644 -D %{SOURCE10} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 %endif
 
 %check
@@ -158,6 +173,10 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Fri Oct 19 2018 Simone Caronni <negativo17@gmail.com> - 2.20.0.909-2
+- Do not let rpmbuild download source files.
+- Add helper scripts to fill versions in SPEC file.
+
 * Thu Oct 04 2018 Simone Caronni <negativo17@gmail.com> - 2.20.0.909-1
 - Update to v2.20.0.909-46413dd1.
 
