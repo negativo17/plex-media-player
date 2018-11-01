@@ -4,6 +4,8 @@ PMP_TAG=$1
 PMP_VERSION=$(echo $PMP_TAG | sed -e 's/-.*//g' -e 's/^v//g')
 PMP_SHORTCOMMIT=$(echo $PMP_TAG | sed -e 's/.*-//g')
 
+rm -f *tar.gz *tar.xz *tar.xz.sha1 *cmake
+
 wget -c https://github.com/plexinc/plex-media-player/archive/$PMP_TAG.tar.gz \
   -O plex-media-player-$PMP_VERSION-$PMP_SHORTCOMMIT.tar.gz
 
