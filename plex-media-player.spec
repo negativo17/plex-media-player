@@ -1,13 +1,13 @@
-%global shortcommit 46413dd1
+%global shortcommit 4839cbf2
 %global username plex-media-player
 
-%global _web_client_build_id 78-ac41f92757f795
-%global _tv_version 3.72.0-ac41f92
+%global _web_client_build_id 80-af3977f757f795
+%global _tv_version 3.74.0-af3977f
 %global _desktop_version 3.71.1-757f795
 
 Name:           plex-media-player
-Version:        2.20.0.909
-Release:        2%{?dist}
+Version:        2.21.0.914
+Release:        3%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -173,6 +173,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Thu Nov 01 2018 Simone Caronni <negativo17@gmail.com> - 2.21.0.914-3
+- Update to v2.21.0.914-4839cbf2.
+
 * Fri Oct 19 2018 Simone Caronni <negativo17@gmail.com> - 2.20.0.909-2
 - Do not let rpmbuild download source files.
 - Add helper scripts to fill versions in SPEC file.
