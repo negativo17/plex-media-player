@@ -7,8 +7,8 @@ User = plex-media-player
 Group = plex-media-player
 PAMName = login
 Type = simple
-ExecStart = /usr/bin/xinit /usr/bin/plexmediaplayer --tv --scale-factor=1.5 -- -nocursor :0 -nolisten tcp -s off
-Restart = on-abort
+ExecStart = /usr/bin/xinit /usr/bin/plexmediaplayer --tv --no-updates -- -nocursor :0 -nolisten tcp -s off
+Restart = always
  
 [Install]
 WantedBy = multi-user.target

@@ -7,7 +7,7 @@
 
 Name:           plex-media-player
 Version:        2.26.0.947
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -70,6 +70,7 @@ screen TVs. Your collection of videos, music, and photos never looked so good!
 
 %package session
 Summary:        Plex Embedded Client
+Requires(pre):  shadow-utils
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description session
@@ -115,11 +116,11 @@ install -p -m 0644 %{SOURCE12} %{SOURCE13} %{buildroot}%{_unitdir}
 
 %if 0%{?fedora}
 # Install Gnome Software metadata
-install -p -m 0644 -D %{SOURCE10} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -p -m 0644 -D %{SOURCE10} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 %endif
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/plexmediaplayer.desktop
 
 %pre session
@@ -133,7 +134,6 @@ getent passwd %username >/dev/null || useradd -r -M \
 exit 0
 
 %post session
-%if 0%{?fedora}
 %systemd_post %{name}.service
 
 %preun session
@@ -141,7 +141,6 @@ exit 0
 
 %postun session
 %systemd_postun %{name}.service
-%endif
 
 %post
 %if 0%{?rhel} == 7
@@ -159,7 +158,7 @@ exit 0
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
 %if 0%{?fedora}
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 %endif
 %{_datadir}/applications/plexmediaplayer.desktop
 %{_datadir}/icons/hicolor/scalable/apps/plexmediaplayer.svg
@@ -173,6 +172,10 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Jan 27 2019 Simone Caronni <negativo17@gmail.com> - 2.26.0.947-9
+- Update session systemd configuration.
+- Update SPEC file.
+
 * Thu Jan 24 2019 Simone Caronni <negativo17@gmail.com> - 2.26.0.947-8
 - Update to v2.26.0.947-1e21fa2b.
 
