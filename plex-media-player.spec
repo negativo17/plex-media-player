@@ -1,13 +1,13 @@
-%global shortcommit 1e21fa2b
+%global shortcommit 542ba3ed
 %global username plex-media-player
 
-%global _web_client_build_id 98-0ff841fe41d5c5
-%global _tv_version 3.84.1-0ff841f
-%global _desktop_version 3.77.4-e41d5c5
+%global _web_client_build_id 99-ed0f3670043312
+%global _tv_version 3.86.1-ed0f367
+%global _desktop_version 3.83.1-0043312
 
 Name:           plex-media-player
-Version:        2.26.0.947
-Release:        9%{?dist}
+Version:        2.27.0.949
+Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -142,14 +142,14 @@ exit 0
 %postun session
 %systemd_postun %{name}.service
 
-%post
 %if 0%{?rhel} == 7
+
+%post
 /usr/bin/update-desktop-database &> /dev/null || :
-%endif
 
 %postun
-%if 0%{?rhel} == 7
 /usr/bin/update-desktop-database &> /dev/null || :
+
 %endif
 
 %files
@@ -172,6 +172,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Fri Feb 08 2019 Simone Caronni <negativo17@gmail.com> - 2.27.0.949-1
+- Update to v2.27.0.949-542ba3ed.
+
 * Sun Jan 27 2019 Simone Caronni <negativo17@gmail.com> - 2.26.0.947-9
 - Update session systemd configuration.
 - Update SPEC file.

@@ -29,7 +29,7 @@ sed -i \
     -e "s|%global _desktop_version.*|%global _desktop_version ${DESKTOP_VERSION}|g" \
     plex-media-player.spec
 
-rpmdev-bumpspec -c "Update to $PMP_TAG." plex-media-player.spec
+rpmdev-bumpspec -c "Update to $PMP_TAG." -n $PMP_VERSION plex-media-player.spec
 
 rm -f *xz *sha1 *gz
 
