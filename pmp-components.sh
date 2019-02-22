@@ -23,7 +23,6 @@ rm -f WebClient.cmake buildid.cmake
 
 sed -i \
     -e "s|%global shortcommit.*|%global shortcommit ${PMP_SHORTCOMMIT}|g" \
-    -e "s|Version:.*|Version:        ${PMP_VERSION}|g" \
     -e "s|%global _web_client_build_id.*|%global _web_client_build_id ${WEB_CLIENT_BUILD_ID}|g" \
     -e "s|%global _tv_version.*|%global _tv_version ${TV_VERSION}|g" \
     -e "s|%global _desktop_version.*|%global _desktop_version ${DESKTOP_VERSION}|g" \
