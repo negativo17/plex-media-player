@@ -1,12 +1,12 @@
-%global shortcommit 29666b14
+%global shortcommit 0150ae52
 %global username plex-media-player
 
-%global _web_client_build_id 128-6e4220dd7ae231
-%global _tv_version 3.103.1-6e4220d
+%global _web_client_build_id 129-669a5eed7ae231
+%global _tv_version 3.105.0-669a5ee
 %global _desktop_version 3.100.1-d7ae231
 
 Name:           plex-media-player
-Version:        2.35.1.986
+Version:        2.36.0.988
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
@@ -172,6 +172,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Jul 07 2019 Simone Caronni <negativo17@gmail.com> - 2.36.0.988-1
+- Update to v2.36.0.988-0150ae52.
+
 * Sun Jun 16 2019 Simone Caronni <negativo17@gmail.com> - 2.35.1.986-1
 - Update to v2.35.1.986-29666b14.
 
