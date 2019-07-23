@@ -7,7 +7,7 @@
 
 Name:           plex-media-player
 Version:        2.37.2.996
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -24,6 +24,9 @@ Source11:        %{name}.pkla
 Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
+
+Patch0:         https://patch-diff.githubusercontent.com/raw/plexinc/plex-media-player/pull/873.patch
+Patch1:         https://patch-diff.githubusercontent.com/raw/plexinc/plex-media-player/pull/877.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -78,7 +81,7 @@ This add-on to the %{name} package allows you to start the Plex Media
 Player in TV mode at boot for HTPC installations.
 
 %prep
-%autosetup -n %{name}-%{version}-%{shortcommit}
+%autosetup -p1 -n %{name}-%{version}-%{shortcommit}
 cp %{SOURCE14} .
 
 mkdir -p build/dependencies
@@ -172,6 +175,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Mon Jul 22 2019 Simone Caronni <negativo17@gmail.com> - 2.37.2.996-2
+- Add patches to disable screensaver with dbus and have a dark titlebar.
+
 * Fri Jul 19 2019 Simone Caronni <negativo17@gmail.com> - 2.37.2.996-1
 - Update to v2.37.2.996-bea4f9ca.
 
