@@ -1,13 +1,13 @@
-%global shortcommit bea4f9ca
+%global shortcommit e14e4d74
 %global username plex-media-player
 
-%global _web_client_build_id 134-d0d41f199cd699
-%global _tv_version 3.107.1-d0d41f1
+%global _web_client_build_id 136-40fdc9e99cd699
+%global _tv_version 3.109.1-40fdc9e
 %global _desktop_version 3.104.1-99cd699
 
 Name:           plex-media-player
-Version:        2.37.2.996
-Release:        2%{?dist}
+Version:        2.38.0.999
+Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -175,6 +175,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sat Jul 27 2019 Simone Caronni <negativo17@gmail.com> - 2.38.0.999-1
+- Update to v2.38.0.999-e14e4d74.
+
 * Mon Jul 22 2019 Simone Caronni <negativo17@gmail.com> - 2.37.2.996-2
 - Add patches to disable screensaver with dbus and have a dark titlebar.
 
