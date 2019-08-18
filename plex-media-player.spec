@@ -1,12 +1,12 @@
-%global shortcommit e14e4d74
+%global shortcommit 1b0839a8
 %global username plex-media-player
 
-%global _web_client_build_id 136-40fdc9e99cd699
-%global _tv_version 3.109.1-40fdc9e
-%global _desktop_version 3.104.1-99cd699
+%global _web_client_build_id 140-c9c2b5c1b12c68
+%global _tv_version 4.1.1-c9c2b5c
+%global _desktop_version 3.104.2-1b12c68
 
 Name:           plex-media-player
-Version:        2.38.0.999
+Version:        2.39.0.1005
 Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
@@ -24,9 +24,6 @@ Source11:        %{name}.pkla
 Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/plexinc/plex-media-player/pull/873.patch
-Patch1:         https://patch-diff.githubusercontent.com/raw/plexinc/plex-media-player/pull/877.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -175,6 +172,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Aug 18 2019 Simone Caronni <negativo17@gmail.com> - 2.39.0.1005-1
+- Update to v2.39.0.1005-1b0839a8.
+
 * Sat Jul 27 2019 Simone Caronni <negativo17@gmail.com> - 2.38.0.999-1
 - Update to v2.38.0.999-e14e4d74.
 
