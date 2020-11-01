@@ -1,3 +1,5 @@
+%global __cmake_in_source_build 1
+
 %global shortcommit 38e019da
 %global username plex-media-player
 
@@ -7,7 +9,7 @@
 
 Name:           plex-media-player
 Version:        2.58.0.1076
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -24,6 +26,8 @@ Source11:        %{name}.pkla
 Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
+
+Patch:          https://github.com/tapiab/plex-media-player/commit/a882994795e88b90ff99b5b6a6e976177717b44f.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -172,6 +176,12 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Nov 01 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-3
+- Fix build with latest QT5.
+
+* Sun Nov 01 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-2
+- Rebuild for updated dependencies.
+
 * Fri May 29 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-1
 - Update to v2.58.0.1076-38e019da.
 
