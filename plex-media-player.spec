@@ -7,7 +7,7 @@
 
 Name:           plex-media-player
 Version:        2.58.0.1076
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -172,6 +172,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sun Nov 01 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-2
+- Rebuild for updated dependencies.
+
 * Fri May 29 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-1
 - Update to v2.58.0.1076-38e019da.
 
