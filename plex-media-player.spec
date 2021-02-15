@@ -9,7 +9,7 @@
 
 Name:           plex-media-player
 Version:        2.58.0.1076
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -27,7 +27,9 @@ Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
 
-Patch:          https://github.com/tapiab/plex-media-player/commit/a882994795e88b90ff99b5b6a6e976177717b44f.patch
+Patch0:         https://github.com/tapiab/%{name}/commit/a882994795e88b90ff99b5b6a6e976177717b44f.patch
+Patch1:         https://github.com/plexinc/%{name}/commit/5430cd807250a8f7329baad76b15a363f35b53fa.patch
+Patch2:         https://github.com/plexinc/%{name}/commit/5d099a167ba44942a5da841a113f23b076b622a2.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  cmake3 >= 3.1.0
@@ -176,6 +178,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Mon Feb 15 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-4
+- Update with master patches and newer libmpv.
+
 * Sun Nov 01 2020 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-3
 - Fix build with latest QT5.
 
