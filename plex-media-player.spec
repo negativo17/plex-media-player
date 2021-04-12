@@ -9,7 +9,7 @@
 
 Name:           plex-media-player
 Version:        2.58.0.1076
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -31,13 +31,8 @@ Patch0:         https://github.com/tapiab/%{name}/commit/a882994795e88b90ff99b5b
 Patch1:         https://github.com/plexinc/%{name}/commit/5430cd807250a8f7329baad76b15a363f35b53fa.patch
 Patch2:         https://github.com/plexinc/%{name}/commit/5d099a167ba44942a5da841a113f23b076b622a2.patch
 
-%if 0%{?rhel} == 7
-BuildRequires:  cmake3 >= 3.1.0
-%else
-BuildRequires:  cmake >= 3.1.0
-%endif
-
 BuildRequires:  alsa-lib-devel
+BuildRequires:  cmake >= 3.1.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
@@ -95,11 +90,7 @@ cp  %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} build/dependencies/
 export http_proxy=http://127.0.0.1
 
 pushd build
-%if 0%{?rhel} == 7
-%cmake3 \
-%else
 %cmake \
-%endif
     -DQTROOT="%{_qt5_prefix}" \
     ..
 popd
@@ -120,10 +111,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 install -p -m 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/
 install -p -m 0644 %{SOURCE12} %{SOURCE13} %{buildroot}%{_unitdir}
 
-%if 0%{?fedora}
 # Install Gnome Software metadata
 install -p -m 0644 -D %{SOURCE10} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-%endif
 
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
@@ -148,24 +137,12 @@ exit 0
 %postun session
 %systemd_postun %{name}.service
 
-%if 0%{?rhel} == 7
-
-%post
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%postun
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%endif
-
 %files
 %license LICENSE
 %doc README.Fedora release-notes
 %{_bindir}/plexmediaplayer
 %{_bindir}/pmphelper
-%if 0%{?fedora}
 %{_metainfodir}/%{name}.appdata.xml
-%endif
 %{_datadir}/applications/plexmediaplayer.desktop
 %{_datadir}/icons/hicolor/scalable/apps/plexmediaplayer.svg
 %{_datadir}/pixmaps/%{name}.png
@@ -178,6 +155,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Mon Apr 12 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-5
+- Clean up SPEC file.
+
 * Mon Feb 15 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-4
 - Update with master patches and newer libmpv.
 
