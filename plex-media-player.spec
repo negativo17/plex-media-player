@@ -9,7 +9,7 @@
 
 Name:           plex-media-player
 Version:        2.58.0.1076
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -27,9 +27,9 @@ Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
 
-Patch0:         https://github.com/tapiab/%{name}/commit/a882994795e88b90ff99b5b6a6e976177717b44f.patch
-Patch1:         https://github.com/plexinc/%{name}/commit/5430cd807250a8f7329baad76b15a363f35b53fa.patch
-Patch2:         https://github.com/plexinc/%{name}/commit/5d099a167ba44942a5da841a113f23b076b622a2.patch
+Patch0:         https://github.com/plexinc/%{name}/commit/5430cd807250a8f7329baad76b15a363f35b53fa.patch
+Patch1:         https://github.com/plexinc/%{name}/commit/5d099a167ba44942a5da841a113f23b076b622a2.patch
+Patch2:         https://github.com/plexinc/%{name}/commit/ae73e074b1d5a94a3975fc93c883840ab786ff0c.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake >= 3.1.0
@@ -50,6 +50,7 @@ BuildRequires:  libX11-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
+BuildRequires:  minizip-compat-devel
 BuildRequires:  mpv-libs-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  systemd
@@ -155,6 +156,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sat Apr 17 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-6
+- Rebase patches on master, fix build on Fedora 34.
+
 * Mon Apr 12 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-5
 - Clean up SPEC file.
 
