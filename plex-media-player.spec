@@ -1,6 +1,6 @@
 %global __cmake_in_source_build 1
 
-%global shortcommit 38e019da
+%global shortcommit ae73e074
 %global username plex-media-player
 
 %global _web_client_build_id 183-045db5be50e175
@@ -8,8 +8,8 @@
 %global _desktop_version 4.29.2-e50e175
 
 Name:           plex-media-player
-Version:        2.58.0.1076
-Release:        6%{?dist}
+Version:        2.58.1
+Release:        1%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -26,10 +26,6 @@ Source11:        %{name}.pkla
 Source12:        %{name}.service
 Source13:        %{name}.target
 Source14:       README.Fedora
-
-Patch0:         https://github.com/plexinc/%{name}/commit/5430cd807250a8f7329baad76b15a363f35b53fa.patch
-Patch1:         https://github.com/plexinc/%{name}/commit/5d099a167ba44942a5da841a113f23b076b622a2.patch
-Patch2:         https://github.com/plexinc/%{name}/commit/ae73e074b1d5a94a3975fc93c883840ab786ff0c.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake >= 3.1.0
@@ -156,6 +152,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Sat Jun 26 2021 Simone Caronni <negativo17@gmail.com> - 2.58.1-1
+- Update to v2.58.1-ae73e074.
+
 * Sat Apr 17 2021 Simone Caronni <negativo17@gmail.com> - 2.58.0.1076-6
 - Rebase patches on master, fix build on Fedora 34.
 
