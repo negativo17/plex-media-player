@@ -9,7 +9,7 @@
 
 Name:           plex-media-player
 Version:        2.58.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Plex Desktop client
 License:        GPLv2
 URL:            https://www.plex.tv/apps/computer/plex-media-player/
@@ -88,6 +88,7 @@ export http_proxy=http://127.0.0.1
 
 pushd build
 %cmake \
+    -DCMAKE_SKIP_RPATH=YES \
     -DQTROOT="%{_qt5_prefix}" \
     ..
 popd
@@ -152,6 +153,9 @@ exit 0
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Fri Sep 24 2021 Simone Caronni <negativo17@gmail.com> - 2.58.1-2
+- Explicitly disable RPATH for Fedora 35+.
+
 * Sat Jun 26 2021 Simone Caronni <negativo17@gmail.com> - 2.58.1-1
 - Update to v2.58.1-ae73e074.
 
